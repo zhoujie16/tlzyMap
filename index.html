@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/nameMap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/world.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/china.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		#app {
+			position: relative;
+		}
+		
+		#main-map {
+			width: 90%;
+			min-height: 600px;
+		}
+		
+		#min-map {
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			z-index: 999;
+		}
+	</style>
+
+	<body>
+
+		<div id="app">
+			<div id="min-map">
+
+			</div>
+			<div class="header">
+				<h3>地图数据可视化</h3>
+			</div>
+			<div id="main-map"></div>
+		</div>
+
+	</body>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index2.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var mainChart = echarts.init(document.getElementById("main-map"));
+		var minChart = echarts.init(document.getElementById("min-map"));
+		mainChart.setOption(worldMapOpt);
+		mainChart.on('click', function(params) {
+			if(params.name == 'China') {
+				showChinaMap();
+			}
+		});
+		
+		$('#min-map').on('click',function(){
+			showWorldMap()
+		})
+	</script>
+
+</html>
