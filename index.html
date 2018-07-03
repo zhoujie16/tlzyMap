@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<script src="js/nameMap.js" type="text/javascript" charset="utf-8"></script>
-		<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>
 		<script src="libs/echarts/map/world.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/china.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
@@ -77,6 +78,7 @@
 		mainChart.on('click', function(params) {
 			if(params.name == 'China') {
 				mainChart.setOption(chinaOpt);
+				$('#bt').fadeOut(500)
 			}
 		});
 	</script>
