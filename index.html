@@ -19,8 +19,9 @@
 		}
 		
 		#main-map {
-			width: 90%;
-			min-height: 600px;
+			width: 100%;
+			/*min-height: 600px;*/
+			height: 100%;
 		}
 		
 		#min-map {
@@ -29,27 +30,82 @@
 			height: 200px;
 			background-color: red;
 			z-index: 999;
+			display: none;
+		}
+		
+		#bt {
+			position: absolute;
+			left: 20px;
+			bottom: 20px;
+			width: 28%;
+			height: 160px; 
+		}
+		
+		#bt div {
+			width: 25%;
+			float: left;
+			height: 100%; 
 		}
 	</style>
 
 	<body>
 
 		<div id="app">
-			<div id="min-map">
-
-			</div>
-			<div class="header">
-				<h3>地图数据可视化</h3>
-			</div>
 			<div id="main-map"></div>
+			<div id="bt">
+				<div class="bt1"></div>
+				<div class="bt2"></div>
+				<div class="bt3"></div>
+				<div class="bt4"></div>
+			</div>
 		</div>
 
 	</body>
+	<script type="text/javascript">
+		var chinaOpt;
+		var worldOpt;
+		var btOpt;
+		var mainChart = echarts.init(document.getElementById('main-map'));
+		//var btChart = echarts.init(document.getElementById('bt'));
+	</script>
 	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/index2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index3.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		mainChart.setOption(worldOpt);
+		//btChart.setOption(btOpt);
+		mainChart.on('click', function(params) {
+			if(params.name == 'China') {
+				mainChart.setOption(chinaOpt);
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		var country1 = echarts.init($('#bt .bt1').get(0));
+		var country2 = echarts.init($('#bt .bt2').get(0));
+		var country3 = echarts.init($('#bt .bt3').get(0));
+		var country4 = echarts.init($('#bt .bt4').get(0));
+		//绘制 百分比 饼图
+		country1.setOption(getCountryOption({
+			value: 80,
+			title: '亚洲',
+		}));
+		country2.setOption(getCountryOption({
+			value: 40,
+			title: '美洲',
+		}));
+		country3.setOption(getCountryOption({
+			value: 30,
+			title: '美洲',
+		}));
+		country4.setOption(getCountryOption({
+			value: 6,
+			title: '非洲',
+		}));
+	</script>
+	<!--<script type="text/javascript">
 		var mainChart = echarts.init(document.getElementById("main-map"));
-		var minChart = echarts.init(document.getElementById("min-map"));
+		//var minChart = echarts.init(document.getElementById("min-map"));
 		mainChart.setOption(worldMapOpt);
 		mainChart.on('click', function(params) {
 			if(params.name == 'China') {
@@ -57,9 +113,9 @@
 			}
 		});
 		
-		$('#min-map').on('click',function(){
-			showWorldMap()
-		})
-	</script>
+		//$('#min-map').on('click',function(){
+			//showWorldMap()
+		//})
+	</script>-->
 
 </html>
