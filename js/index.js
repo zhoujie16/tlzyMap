@@ -81,7 +81,7 @@
 	data.sort(function(a, b) {
 		return a.value - b.value;
 	})
-
+	console.log(JSON.stringify(convertedData[0]))
 	var selectedItems = [];
 	var categoryData = [];
 	var barData = [];
@@ -267,7 +267,18 @@
 					color: '#ddb926'
 				}
 			},
-
+			label: {
+				normal: {
+					show: true,
+					position: 'right',
+					offset: [0, 10]
+				},
+				emphasis: {
+					show: true,
+					position: 'right',
+					offset: [0, 10]
+				}
+			},
 			data: data
 		}]
 	};

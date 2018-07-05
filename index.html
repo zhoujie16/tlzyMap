@@ -8,9 +8,11 @@
 		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<script src="js/nameMap.js" type="text/javascript" charset="utf-8"></script>
-		<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>
 		<script src="libs/echarts/map/world.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/china.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/anhui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style type="text/css">
@@ -38,13 +40,13 @@
 			left: 20px;
 			bottom: 20px;
 			width: 28%;
-			height: 160px; 
+			height: 160px;
 		}
 		
 		#bt div {
 			width: 25%;
 			float: left;
-			height: 100%; 
+			height: 100%;
 		}
 	</style>
 
@@ -68,6 +70,7 @@
 		var mainChart = echarts.init(document.getElementById('main-map'));
 		//var btChart = echarts.init(document.getElementById('bt'));
 	</script>
+	<script src="js/option.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/index2.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/index3.js" type="text/javascript" charset="utf-8"></script>
@@ -76,11 +79,12 @@
 		//btChart.setOption(btOpt);
 		mainChart.on('click', function(params) {
 			if(params.name == 'China') {
-				mainChart.setOption(chinaOpt);
+				showChinaMap()
+				//$('#bt').fadeOut(500)
 			}
 		});
 	</script>
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		var country1 = echarts.init($('#bt .bt1').get(0));
 		var country2 = echarts.init($('#bt .bt2').get(0));
 		var country3 = echarts.init($('#bt .bt3').get(0));
@@ -102,7 +106,7 @@
 			value: 6,
 			title: '非洲',
 		}));
-	</script>
+	</script>-->
 	<!--<script type="text/javascript">
 		var mainChart = echarts.init(document.getElementById("main-map"));
 		//var minChart = echarts.init(document.getElementById("min-map"));
@@ -117,5 +121,28 @@
 			//showWorldMap()
 		//})
 	</script>-->
+	<script type="text/javascript">
+		
+		//显示中国地图
+		function showChinaMap() {
+			mainChart.setOption(chinaOpt);
+			mainChart.on('click', function(p) {
+				console.log(p);
+				console.log('点击name', p.name)
+				if(p.region) {
+					showProvince({
+						name: p.region
+					})
+				}
+			});
+
+		}
+		//显示省份地图
+		function showProvince(d) {
+			console.log('显示省份', d)
+			return;
+
+		}
+	</script>
 
 </html>
