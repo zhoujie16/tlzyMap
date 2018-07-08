@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/nameMap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>-->
+		<script src="libs/echarts/map/world.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/china.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/anhui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		#app {
+			position: relative;
+		}
+		
+		#main-map {
+			width: 100%;
+			/*min-height: 600px;*/
+			height: 100%;
+		}
+		
+		#min-map {
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			z-index: 999;
+			display: none;
+		}
+		
+		#bt {
+			position: absolute;
+			left: 20px;
+			bottom: 20px;
+			width: 28%;
+			height: 160px;
+		}
+		
+		#bt div {
+			width: 25%;
+			float: left;
+			height: 100%;
+		}
+	</style>
+
+	<body>
+
+		<div id="app">
+			<div id="main-map"></div>
+		</div>
+
+	</body>
+	<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var chinaOpt = {
+			//标题组件
+			title: {
+				text: '中国地区校友分布',
+				top: 20,
+				left: 'center',
+				textStyle: {
+					color: '#fff'
+				}
+			},
+			//提示框组件
+			tooltip: {
+
+			},
+
+			//地理坐标系组件
+			geo: {
+				map: 'china',
+				left: '10%',
+				right: '25%',
+				layoutSize: '80%',
+				label: {
+					emphasis: {
+						show: false
+					}
+				},
+				itemStyle: {
+					emphasis: {
+						areaColor: '#fff464'
+					}
+				},
+				regions: [{
+					name: '南海诸岛',
+					value: 0,
+					itemStyle: {
+						normal: {
+							opacity: 0,
+							label: {
+								show: false
+							}
+						}
+					}
+				}],
+			},
+			grid: {
+				right: 40,
+				top: 100,
+				width: '15%',
+				height: '300px'
+			},
+			xAxis: [{
+				gridIndex: 0,
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+					show: false
+				},
+				splitLine: {
+					show: false
+				},
+				axisLine: {
+					show: false
+				}
+			}],
+			yAxis: [{
+				gridIndex: 0,
+				interval: 0,
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+					show: true
+				},
+				splitLine: {
+					show: false
+				},
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: "#6173a3"
+					}
+				},
+				data: function() {
+					//
+					var arr = [];
+					provinceData.forEach(function(item, i) {
+						if(i < 6) {
+							arr.push(item.name)
+						}
+					});
+					return arr;
+				}(),
+			}],
+			visualMap: {
+			type: 'continuous',
+			text: ['', ''],
+			showLabel: true,
+			seriesIndex: [0],
+			min: 0,
+			max: 200,
+			inRange: {
+				color: ['#edfbfb', '#b7d6f3', '#40a9ed', '#3598c1', '#215096', ]
+			},
+			textStyle: {
+				color: '#000'
+			},
+			bottom: 30,
+			left: 'left',
+		},
+			series: [{
+					name: 'mapSer', //鼠标移动到省份上面  显示的提示信息
+					type: 'map',
+					geoIndex: 0,
+					label: {
+						show: false,
+					},
+					tooltip: {
+						formatter: function(d) {
+							console.log('tooltip', d)
+							return d.name + '：' + d.data.value + '人'
+						},
+						textStyle: {
+
+						}
+					},
+
+					data: provinceData
+				},
+				//省会城市 地图 数据
+				{
+					name: 'provincialCapital',
+					type: 'effectScatter',
+					coordinateSystem: 'geo',
+					data: function() {
+						var arr = [];
+						provincialCapitalData.forEach(function(item, i) {
+							arr.push({
+								name: item.name,
+								value: [item.coor[0], item.coor[1], item.value]
+							})
+						});
+						console.log(arr)
+						return arr;
+					}(),
+					symbolSize: function(val) {
+						console.log('symbolSize', val)
+						return Math.max(val[2] / 10, 8);
+					},
+					showEffectOn: 'emphasis',
+					rippleEffect: {
+						brushType: 'stroke'
+					},
+					hoverAnimation: true,
+					tooltip: {
+						show: true,
+						formatter: function(d) {
+							console.log('provincialCapital tooltip', d)
+							return d.name + '：' + d.data.value[2] + '人'
+						},
+					},
+					label: {
+						normal: {
+							formatter: '{b}',
+							position: 'right',
+							show: true
+						}
+					},
+					itemStyle: {
+						normal: {
+							color: '#f4e925',
+							shadowBlur: 10,
+							shadowColor: '#333'
+						}
+					},
+					zlevel: 1
+				},
+				//柱形图数据
+				{
+					name: 'barSer',
+					type: 'bar',
+					visualMap: false,
+					barMaxWidth: 50,
+					itemStyle: {
+						normal: {
+							color: '#40a9ed'
+						},
+						emphasis: {
+							color: "#3596c0"
+						}
+					},
+					tooltip: {
+						formatter: function(d) {
+							console.log('tooltip', d)
+							return d.name + '：' + d.data['value'] + '人'
+						},
+						textStyle: {
+
+						}
+					},
+					data: function() {
+						var arr = [];
+						provinceData.forEach(function(item, i) {
+							if(i < 6) {
+								arr.push(item)
+							}
+						});
+						return arr;
+					}(),
+				},
+			]
+		};
+	 
+		var mainChart = echarts.init(document.getElementById('main-map'));
+		mainChart.setOption(chinaOpt);
+		mainChart.on('click', function(d) {
+			console.log(d)
+		});
+	</script>
+
+</html>

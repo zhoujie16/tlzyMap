@@ -93,7 +93,7 @@
 		barData.push(data[i].value);
 		sum += data[i].value;
 	}
-	console.log(categoryData);
+	console.log('categoryData',categoryData);
 	console.log(sum + "   " + count)
 	worldOpt = {
 		backgroundColor: '#404a59',
