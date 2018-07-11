@@ -8,14 +8,49 @@
 		<!--<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css" />-->
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<script src="js/nameMap.js" type="text/javascript" charset="utf-8"></script>
-		<!--<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>-->
-		<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>
+		<script src="libs/echarts/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>-->
 		<script src="libs/echarts/map/world.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/china.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 34个省和自治区 -->
 		<script src="libs/echarts/map/province/anhui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/aomen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/beijing.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/chongqing.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/fujian.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/gansu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/guangdong.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/guangxi.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/guizhou.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/hainan.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/hebei.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/heilongjiang.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/henan.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/hubei.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/hunan.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/province/jiangsu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/jiangxi.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/jilin.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/liaoning.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/neimenggu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/ningxia.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/qinghai.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/shandong.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/shanghai.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/shanxi.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/shanxi1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/sichuan.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/taiwan.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/tianjin.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/xianggang.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/xinjiang.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/xizang.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/echarts/map/province/yunnan.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/province/zhejiang.js" type="text/javascript" charset="utf-8"></script>
+		<!---->
 		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock.js"></script>
+		<script src="js/ajax-mock.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style type="text/css">
 		#app {
@@ -78,27 +113,27 @@
 			mainChart.setOption(getMapOption());
 			mainChart.on('click', function(d) {
 				console.log('mainChart click', d)
-//				alert( (d.event.target.path._x0).toFixed(2) + ',' +  (d.event.target.path._y0).toFixed(2))
+				//				alert( (d.event.target.path._x0).toFixed(2) + ',' +  (d.event.target.path._y0).toFixed(2))
 				if(d.name == 'China') {
 					showChinaMap()
 				} else if(d.name == '安徽') {
 					showProvince({
-						name:'安徽',
-						areaData:anHuiData,
-						cityData:anHuiData
+						name: '安徽',
+						areaData: anHuiData,
+						cityData: anHuiData
 					})
-					
+
 				} else if(d.name == '江苏') {
 					showProvince({
-						name:'江苏',
-						areaData:jiangSuData,
-						cityData:jiangSuData
+						name: '江苏',
+						areaData: jiangSuData,
+						cityData: jiangSuData
 					})
 				} else if(d.name == '浙江') {
 					showProvince({
-						name:'浙江',
-						areaData:zheJiangData,
-						cityData:zheJiangData
+						name: '浙江',
+						areaData: zheJiangData,
+						cityData: zheJiangData
 					})
 				}
 			});
@@ -141,11 +176,11 @@
 					map: mapName,
 					left: '5%',
 					right: '25%',
-					top: '10%', 
+					top: '10%',
 					//					bottom:'10%',
 					layoutCenter: ['38%', '50%'],
 					layoutSize: '100%',
-//					nameMap:nameMap,
+					//					nameMap:nameMap,
 					label: {
 						normal: {
 							show: false
@@ -216,7 +251,7 @@
 						var arr = [];
 						areaData.forEach(function(d, i) {
 							if(i < 6) {
-								arr.push(nameMap[d.name]||d.name)
+								arr.push(nameMap[d.name] || d.name)
 							}
 						});
 						return arr.reverse();
@@ -248,7 +283,7 @@
 						tooltip: {
 							formatter: function(d) {
 								console.log('tooltip map', d)
-								return (nameMap[d.name]||d.name) + '：' + d.data.value||'0' + '人'
+								return(nameMap[d.name] || d.name) + '：' + d.data.value || '0' + '人'
 							},
 							textStyle: {
 
@@ -368,6 +403,5 @@
 			}
 		}
 	</script>
-	 
 
 </html>

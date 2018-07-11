@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="app" style="padding: 50px;">
+			<input type="text" name="s" id="s" value="" placeholder="省"/>
+			<input type="text" name="sh" id="sh" value="" placeholder="省会"/>
+			<textarea id="t1" name="" rows="5" cols=""></textarea>
+			<button type="button" class="mui-btn mui-btn-blue">按钮</button>
+			<textarea id="t2" name="" rows="5" cols=""></textarea>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$('button').on('click', function() {
+			var data = JSON.parse($('#t1').val());
+			var arr = [];
+			data.forEach(function(item, i) {
+				arr.push({
+					name: item.properties.name,
+					coor: [0, 0],
+					value: parseInt(Math.random() * 160)
+				})
+			});
+			console.log(arr)
+			var d = {
+				name: $('#s').val(),
+				value: parseInt(Math.random()*200),
+				capital: {
+					name: $('#sh').val(),
+					coor: [0,0],
+				},
+				city:arr
+				
+			}
+			$('#t2').val(JSON.stringify(d))
+		})
+	</script>
+
+</html>
