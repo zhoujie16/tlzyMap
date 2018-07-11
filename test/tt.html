@@ -24,7 +24,7 @@
 			data.forEach(function(item, i) {
 				arr.push({
 					name: item.properties.name,
-					coor: [0, 0],
+					coor: item.properties.cp,
 					value: parseInt(Math.random() * 160)
 				})
 			});
@@ -40,7 +40,7 @@
 				
 			}
 			$('#t2').val(JSON.stringify(d))
-		})
+		});
 	</script>
 
 </html>

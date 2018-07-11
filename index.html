@@ -48,9 +48,11 @@
 		<script src="libs/echarts/map/province/yunnan.js" type="text/javascript" charset="utf-8"></script>
 		<script src="libs/echarts/map/province/zhejiang.js" type="text/javascript" charset="utf-8"></script>
 		<!---->
+		<script src="js/china.js" type="text/javascript" charset="utf-8"></script>
 		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock.js"></script>
 		<script src="js/ajax-mock.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style type="text/css">
 		#app {
@@ -94,12 +96,27 @@
 		</div>
 
 	</body>
-	<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/data.js" type="text/javascript" charset="utf-8"></script>-->
 	<script type="text/javascript">
+		var chinaData = [];
+		//国家数据
+		var worldData = []
+		//著名首都坐标
+		var worldCityData = []
 		var mapName = '';
 		var areaData = [];
 		var cityData = [];
 		var pieData = [];
+
+		http.getChinaData(function(data) {
+			chinaData = data.sort(sortVal);
+			http.getWorldCountryData(function(data) {
+				worldData = data.sort(sortVal);
+				http.getWorldCapitalData(function(data) {
+					worldCityData = data.sort(sortVal);
+				})
+			});
+		})
 		var mainChart = echarts.init(document.getElementById('main-map'));
 	</script>
 	<script type="text/javascript">
@@ -116,24 +133,13 @@
 				//				alert( (d.event.target.path._x0).toFixed(2) + ',' +  (d.event.target.path._y0).toFixed(2))
 				if(d.name == 'China') {
 					showChinaMap()
-				} else if(d.name == '安徽') {
+					return;
+				}
+				if(isHaveMap(d.name)) {
 					showProvince({
-						name: '安徽',
-						areaData: anHuiData,
-						cityData: anHuiData
-					})
-
-				} else if(d.name == '江苏') {
-					showProvince({
-						name: '江苏',
-						areaData: jiangSuData,
-						cityData: jiangSuData
-					})
-				} else if(d.name == '浙江') {
-					showProvince({
-						name: '浙江',
-						areaData: zheJiangData,
-						cityData: zheJiangData
+						name: d.name,
+						areaData: dataTool.getCityByCapital(d.name).sort(sortVal),
+						cityData: dataTool.getCityByCapital(d.name).sort(sortVal),
 					})
 				}
 			});
@@ -141,8 +147,8 @@
 
 		function showChinaMap() {
 			mapName = 'china';
-			areaData = provinceData;
-			cityData = provincialCapitalData;
+			areaData = dataTool.getChinaCountryData();
+			cityData = dataTool.getChinaProvincialCapitalData();
 			pieData = getChinaPie();
 			mainChart.setOption(getMapOption());
 		}
@@ -402,6 +408,11 @@
 				]
 			}
 		}
+	</script>
+	<script type="text/javascript">
+		http.getChinaData(function(dada) {
+			console.warn(dada)
+		})
 	</script>
 
 </html>

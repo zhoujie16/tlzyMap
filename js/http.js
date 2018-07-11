@@ -642,296 +642,112 @@ var http = {
 		}];
 		success(data);
 	},
+	//获取中国的数据
+	getChinaData: function(success) {
+		success(ChinaTest);
+	}
+
+}
+
+var dataTool = {
 	//获取中国各个省份对应的人数
-	getChinaCountryData: function(success) {
-		var data = [{
-				name: '安徽',
-				value: 200
-			}, {
-				name: '浙江',
-				value: 180
-			},
-			{
-				name: '上海',
-				value: 150
-			}, {
-				name: '广东',
-				value: 120
-			},
-			{
-				name: '湖北',
-				value: 100
-			}, {
-				name: '北京',
-				value: 80
-			},
-			{
-				name: '天津',
-				value: 60
-			},
-			{
-				name: '重庆',
-				value: 56
-			},
-			{
-				name: '河北',
-				value: 55
-			},
-			{
-				name: '河南',
-				value: 50
-			},
-			{
-				name: '云南',
-				value: 48
-			},
-			{
-				name: '辽宁',
-				value: 43
-			},
-			{
-				name: '黑龙江',
-				value: 41
-			},
-			{
-				name: '湖南',
-				value: 24
-			},
-
-			{
-				name: '山东',
-				value: 20
-			},
-			{
-				name: '新疆',
-				value: 1
-			},
-			{
-				name: '江苏',
-				value: 39
-			},
-
-			{
-				name: '江西',
-				value: 20
-			},
-			{
-				name: '广西',
-				value: 30
-			},
-			{
-				name: '甘肃',
-				value: 12
-			},
-			{
-				name: '山西',
-				value: 32
-			},
-			{
-				name: '内蒙古',
-				value: 35
-			},
-			{
-				name: '陕西',
-				value: 25
-			},
-			{
-				name: '吉林',
-				value: 45
-			},
-			{
-				name: '福建',
-				value: 28
-			},
-			{
-				name: '贵州',
-				value: 18
-			},
-
-			{
-				name: '青海',
-				value: 06
-			},
-			{
-				name: '西藏',
-				value: 04
-			},
-			{
-				name: '四川',
-				value: 33
-			},
-			{
-				name: '宁夏',
-				value: 08
-			},
-			{
-				name: '海南',
-				value: 19
-			},
-			{
-				name: '台湾',
-				value: 01
-			},
-			{
-				name: '香港',
-				value: 01
-			},
-			{
-				name: '澳门',
-				value: 01
-			}
-		];
-		success(data)
+	getChinaCountryData: function() {
+		var provinceData = [];
+		$.each(ChinaTest, function(i, d) {
+			provinceData.push({
+				name: d.name,
+				value: d.value
+			})
+		});
+		return provinceData;
 	},
 	//获取中国省会城市对应的人数
 	getChinaProvincialCapitalData: function(success) {
-		var data = [{
-			"name": "上海",
-			"coor": [121.4648, 31.2891],
-			"value": 685
-		}, {
-			"name": "天津",
-			"coor": [117.4219, 39.4189],
-			"value": 152
-		}, {
-			"name": "北京",
-			"coor": [116.4551, 40.2539],
-			"value": 103
-		}, {
-			"name": "重庆",
-			"coor": [107.7539, 30.1904],
-			"value": 922
-		}, {
-			"name": "石家庄",
-			"coor": [114.4995, 38.1006],
-			"value": 386
-		}, {
-			"name": "太原",
-			"coor": [112.3352, 37.9413],
-			"value": 135
-		}, {
-			"name": "沈阳",
-			"coor": [123.1238, 42.1216],
-			"value": 82
-		}, {
-			"name": "长春",
-			"coor": [125.8154, 44.2584],
-			"value": 994
-		}, {
-			"name": "哈尔滨",
-			"coor": [127.9688, 45.368],
-			"value": 617
-		}, {
-			"name": "南京",
-			"coor": [118.8062, 31.9208],
-			"value": 381
-		}, {
-			"name": "杭州",
-			"coor": [119.5313, 29.8773],
-			"value": 841
-		}, {
-			"name": "合肥",
-			"coor": [117.29, 32.0581],
-			"value": 148
-		}, {
-			"name": "福州",
-			"coor": [119.4543, 25.9222],
-			"value": 331
-		}, {
-			"name": "南昌",
-			"coor": [116.0046, 28.6633],
-			"value": 549
-		}, {
-			"name": "济南",
-			"coor": [117.1582, 36.8701],
-			"value": 164
-		}, {
-			"name": "郑州",
-			"coor": [113.4668, 34.6234],
-			"value": 116
-		}, {
-			"name": "广州",
-			"coor": [113.5107, 23.2196],
-			"value": 392
-		}, {
-			"name": "长沙",
-			"coor": [113.0823, 28.2568],
-			"value": 279
-		}, {
-			"name": "武汉",
-			"coor": [114.3896, 30.6628],
-			"value": 239
-		}, {
-			"name": "海口",
-			"coor": [110.3893, 19.8516],
-			"value": 914
-		}, {
-			"name": "成都",
-			"coor": [103.9526, 30.7617],
-			"value": 635
-		}, {
-			"name": "贵阳",
-			"coor": [106.6992, 26.7682],
-			"value": 294
-		}, {
-			"name": "昆明",
-			"coor": [102.9199, 25.4663],
-			"value": 193
-		}, {
-			"name": "西安",
-			"coor": [109.1162, 34.2004],
-			"value": 184
-		}, {
-			"name": "兰州",
-			"coor": [103.5901, 36.3043],
-			"value": 832
-		}, {
-			"name": "西宁",
-			"coor": [101.4038, 36.8207],
-			"value": 423
-		}, {
-			"name": "呼和浩特",
-			"coor": [111.4124, 40.4901],
-			"value": 658
-		}, {
-			"name": "南宁",
-			"coor": [108.479, 23.1152],
-			"value": 123
-		}, {
-			"name": "拉萨",
-			"coor": [91.1865, 30.1465],
-			"value": 15
-		}, {
-			"name": "银川",
-			"coor": [106.3586, 38.1775],
-			"value": 498
-		}, {
-			"name": "乌鲁木齐",
-			"coor": [87.9236, 43.5883],
-			"value": 710
-		}];
-		success(data);
+		var provincialCapitalData = [];
+		$.each(ChinaTest, function(i, d) {
+			provincialCapitalData.push({
+				name: d.capital.name,
+				value: d.capital.value,
+				coor: d.capital.coor,
+			})
+		});
+		return provincialCapitalData;
 	},
 	//获取各个省对应城市的人数。
-	
+	getCityByCapital: function(name) {
+		var arr = [];
+		$.each(ChinaTest, function(i, d) {
+			if(d.name == name) {
+				arr = d.city;
+				return false;
+			}
+		});
+		return arr;
+	}
 }
-
-function test() {
-	var data = {};
+function sortVal(a, b) {
+	return b.value - a.value
+}
+//百分比数据
+function getWorldPie() {
+	var arr = [];
 	worldData.forEach(function(d, i) {
-		data[d.name] = d.value;
+		if(i < 5) {
+			arr.push({
+				value: d.value,
+				name: nameMap[d.name]
+			});
+		}
+	});
+	arr.push({
+		value: 50,
+		name: '其它'
 	})
-	console.log(JSON.stringify(data))
+	return arr;
 }
 
-function test2(){
-	var dd = ['anhui.js','aomen.js','beijing.js','chongqing.js','fujian.js','gansu.js','guangdong.js','guangxi.js','guizhou.js','hainan.js','hebei.js','heilongjiang.js','henan.js','hubei.js','hunan.js','jiangsu.js','jiangxi.js','jilin.js','liaoning.js','neimenggu.js','ningxia.js','qinghai.js','shandong.js','shanghai.js','shanxi.js','shanxi1.js','sichuan.js','taiwan.js','tianjin.js','xianggang.js','xinjiang.js','xizang.js','yunnan.js','zhejiang.js'];
-	$.each(dd, function(i,d) {
-		dd[i] = '<script src="libs/echarts/map/province/'+ d+'" type="text/javascript" charset="utf-8"></script>'
+function getChinaPie() {
+	var arr = [];
+	dataTool.getChinaCountryData().forEach(function(d, i) {
+		if(i < 5) {
+			arr.push({
+				value: d.value,
+				name: d.name
+			});
+		}
 	});
-	var s = '';
-	dd.forEach(function(d,i){
-		s+=d
+	arr.push({
+		value: 50,
+		name: '其它'
 	})
-	console.log(s)
+	return arr;
+}
+
+function getProvincePie(data) {
+	var arr = [];
+	data.forEach(function(d, i) {
+		if(i < 5) {
+			arr.push({
+				value: d.value,
+				name: d.name
+			});
+		}
+	});
+	arr.push({
+		value: 50,
+		name: '其它'
+	})
+	return arr;
+}
+
+
+function isHaveMap(name){
+	var f = false;
+	$.each(chinaData,function(i,d){
+		if (d.name == name) {
+			f = true;
+			return false;
+		}
+	});
+	return f;
 }
