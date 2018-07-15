@@ -63,7 +63,7 @@ function getMapOption() {
 	return {
 		//标题组件
 		title: {
-			text: '中国地区校友分布',
+			text: '校友分布',
 			top: 20,
 			left: 'center',
 			textStyle: {
