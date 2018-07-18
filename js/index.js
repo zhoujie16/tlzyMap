@@ -7,6 +7,7 @@ var mapName = '';
 var areaData = [];
 var cityData = [];
 var pieData = [];
+var $backBtn = $('#back');
 var mainChart = echarts.init(document.getElementById('main-map'));
 http.getChinaData(function(data) {
 	chinaData = data.sort(sortVal);
@@ -19,12 +20,23 @@ http.getChinaData(function(data) {
 	});
 })
 
+$backBtn.on('click',function(){
+	if (mapName == 'china') {
+		showWorldMap()
+		$backBtn.hide();
+	}else{
+		showChinaMap()
+	}
+});
+
 function showWorldMap() {
 	mapName = 'world';
 	areaData = worldData;
 	cityData = worldCityData;
 	pieData = getWorldPie();
 	mainChart.setOption(getMapOption());
+	$()
+	mainChart.off('click');
 	mainChart.on('click', function(d) {
 		console.log('mainChart click', d)
 		//				alert( (d.event.target.path._x0).toFixed(2) + ',' +  (d.event.target.path._y0).toFixed(2))
@@ -48,6 +60,7 @@ function showChinaMap() {
 	cityData = dataTool.getChinaProvincialCapitalData();
 	pieData = getChinaPie();
 	mainChart.setOption(getMapOption());
+	$backBtn.show();
 }
 
 function showProvince(d) {
@@ -60,6 +73,7 @@ function showProvince(d) {
 
 //获取绘制地图的数据
 function getMapOption() {
+	var visualMapMax = areaData[0].value;
 	return {
 		//标题组件
 		title: {
@@ -80,6 +94,27 @@ function getMapOption() {
 			left: '5%',
 			right: '25%',
 			top: '10%',
+			zoom:function(){
+				if (mapName == 'world') {
+					return 1.3;
+				}
+				return 1;
+			}(),
+			roam:function(){
+				if (mapName == 'world') {
+					return true;
+				}
+				return false;
+			}(),
+			scaleLimit:{
+				min:1,
+				max:1.3,
+			},
+			center:function(){
+				if (mapName == 'world') {
+					return [0, 15];
+				}
+			}(),
 			//					bottom:'10%',
 			layoutCenter: ['38%', '50%'],
 			layoutSize: '100%',
@@ -109,6 +144,10 @@ function getMapOption() {
 					}
 				}
 			}],
+			//提示框组件
+			tooltip: {
+	
+			},
 		},
 		grid: {
 			right: 40,
@@ -166,7 +205,7 @@ function getMapOption() {
 			showLabel: true,
 			seriesIndex: [0],
 			min: 0,
-			max: 100,
+			max: visualMapMax,
 			inRange: {
 				color: ['#edfbfb', '#b7d6f3', '#40a9ed', '#3598c1', '#215096', ]
 			},
@@ -186,7 +225,7 @@ function getMapOption() {
 				tooltip: {
 					formatter: function(d) {
 						console.log('tooltip map', d)
-						return(nameMap[d.name] || d.name) + '：' + d.data.value || '0' + '人'
+						return(nameMap[d.name] || d.name) + '：' + (d.data.value || 0) + '人'
 					},
 					textStyle: {
 
@@ -250,6 +289,13 @@ function getMapOption() {
 				type: 'bar',
 				visualMap: false,
 				barMaxWidth: 50,
+				label: {
+			      normal: {
+			          show: true,
+			          position: 'right',
+			          formatter:'{c}人'
+			      }
+			  },
 				itemStyle: {
 					normal: {
 						color: '#40a9ed'
@@ -283,7 +329,7 @@ function getMapOption() {
 				type: 'pie',
 				radius: '20%',
 				center: ['90%', '26%'],
-				color: ['#86c9f4', '#4da8ec', '#3a91d2', '#005fa6', '#315f97'],
+				color: ['#315f97', '#005fa6', '#3a91d2', '#4da8ec', '#86c9f4', '#99ccff'],
 				labelLine: {
 					normal: {
 						show: false
@@ -300,6 +346,12 @@ function getMapOption() {
 							}
 						}
 					},
+				},
+				tooltip: {
+					formatter: function(d) {
+						console.log('tooltip pie', d)
+						return(nameMap[d.name] || d.name) + '：' + (d.data.value || 0) + '人'
+					}
 				},
 			}
 		]

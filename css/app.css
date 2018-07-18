@@ -71,5 +71,5 @@ body,
 	height: 100%;
 }
 
-
-}
+#back{position:absolute;width:100px;height:25px;line-height:25px;top:50px;left:50px;background-color:#005FA6;color:whitesmoke;text-align:center;font-size:12px;border-radius:3px;cursor:pointer;z-index:999;display:none}
+#back:hover{background-color:#3596c0}
